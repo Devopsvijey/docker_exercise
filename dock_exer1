@@ -1,0 +1,23 @@
+command # vi Dockerfile
+
+#This is gendral Dockerfile written by Vijey
+
+FROM nginx:latest
+COPY . /usr/share/nginx/html
+EXPOSE 80
+
+:wq!
+
+command # docker build -t my-nginx-app .
+
+	# docker images
+
+	# docker run -d -p 80:80 my-nginx-app
+
+	# docker ps
+
+	# docker login Username:dockervijey passwd:
+
+	# docker tag my-nginx-app dockervijey/my-nginx-app
+
+	# docker push dockervijey/my-nginx-app
