@@ -1,0 +1,30 @@
+Running Containers
+Objective
+Learn how to run, stop and remove containers
+
+Instructions
+Run a container using the latest nginx image
+List the containers to make sure the container is running
+Run another container but this time use ubuntu latest and attach to the terminal of the container
+List again the containers. How many containers are running?
+Stop the containers
+Remove the containers.
+
+Answer:
+------
+
+docker run -d --name nginx-container nginx:latest
+
+docker ps
+
+docker run -it --name ubuntu-container ubuntu:latest
+
+docker ps
+
+docker stop nginx-container ubuntu-container
+
+docker rm $(docker ps -a)
+
+docker rmi $(docker images)
+
+
