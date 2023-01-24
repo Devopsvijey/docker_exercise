@@ -1,0 +1,90 @@
+
+vi Dockerfile
+
+# Use Ubuntu as the base image
+FROM ubuntu:latest
+
+# Update the package repository and install Apache
+RUN apt-get update && \
+    apt-get install -y apache2
+
+# Deploy a simple web application
+COPY index.html /var/www/html/
+
+# Install HAProxy
+RUN apt-get install -y haproxy
+
+# Add configuration for HAProxy to redirect HTTP traffic to HTTPS
+COPY haproxy.cfg /etc/haproxy/
+
+# Enable and start the Apache and HAProxy service
+RUN a2enmod ssl && \
+    a2ensite default-ssl && \
+    service apache2 start && \
+    service haproxy start
+
+# Expose port 80 and 443 for HTTP and HTTPS traffic
+EXPOSE 80 443
+
+:wq!
+
+
+wget "https://www.free-css.com/assets/files/free-css-templates/download/page287/cycle.zip"
+
+apt install unzip
+
+unzip cycle.zip
+
+cd html
+
+ls -l
+
+
+vi index.html		(put your web application HTML code in it.)
+
+mv index.html /home/ubuntu/docker_exercise/
+
+cd ..
+
+vi haproxy.cfg
+
+global
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    chroot /var/lib/haproxy
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
+
+frontend http-in
+    bind *:80
+    default_backend web-backend
+
+backend web-backend
+    balance roundrobin
+    server web1 18.181.219.103:80 check
+    server web2 3.115.24.34:80 check
+
+:wq!
+
+
+
+put your HAProxy configuration in it
+
+Build the image using the Docker build command
+
+docker build .
+
+docker images
+
+docker run getting failed..... 
