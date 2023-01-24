@@ -1,0 +1,30 @@
+Objective
+Learn how to work with containers images
+
+Instructions
+List the containers images in your environment
+Pull the latest ubuntu image
+Run a container with the image you just pulled
+Remove the image. Did it work?
+Do whatever is needed in order to remove the image
+
+Answer:
+------
+
+docker images
+
+docker pull ubuntu
+
+docker run -it ubuntu /bin/bash
+
+docker rmi ubuntu (images can't be removed, because its container is running)
+
+docker ps 
+
+docker stop <cont.Id>
+
+docker rm <cont.Id>
+
+docker images
+
+docker rmi -f  ubuntu
