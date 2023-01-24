@@ -1,0 +1,83 @@
+Sharing Images
+Objectives
+Choose an image and create an archive out of it
+Check the archive size. Is it different than the image size? If yes, what's the difference? If not, why?
+Copy the generated archive to a remote host
+Load the image
+Verify it was loaded and exists on the remote host
+---------------------------------------------------------------------------------------------------
+
+Answer:
+-------
+
+docker login
+
+docker pull nginx
+
+docker images (size - 142Mb)
+
+docker run -p 80:80 --name my-nginx -d nginx
+
+docker ps
+
+docker exec -it 7d802fd03d5c /bin/bash
+
+apt-get update
+
+apt-get install vim
+
+vi /usr/share/nginx/html/index.html
+
+exit
+
+docker export my-nginx > my-nginx.tar
+
+ls -lrth my-nginx.tar (size - 192Mb)
+
+TO copy from this Vm to remote VM:
+
+ssh-keygen
+
+cd ~/.ssh
+
+cat id-rsa.pub (copy this public key and need to paste it into authorized key section imn our remote VM)
+
+
+scp my-nginx.tar user@35.78.197.162:~/home/ubuntu	(it will not work, we need to configure remote instance)
+
+In Instance 2:
+---------------
+
+apt-get update
+
+snap install docker
+
+apt install ssh
+
+ssh-keygen
+
+cd ~/.ssh
+
+vi authorized_keys (Paste the public key of Instance 1 here,   :wq!)
+
+systemctl restart ssh
+
+
+---------------------------------------------------------------------------
+
+Go to Instance 1 again:
+
+scp my-nginx.tar user@35.78.197.162:~/home/ubuntu
+
+ssh root@35.78.197.162:~/home/ubuntu
+
+docker load < my-nginx.tar
+
+docker images
+
+docker run -p 80:80 --name my-nginx
+
+docker ps
+
+
+
